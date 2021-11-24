@@ -1,6 +1,7 @@
 import {CellSet, useQueryResult, WidgetPluginProps} from "@activeviam/activeui-sdk";
+import useComponentSize from "@rehooks/component-size";
 import {Spin} from "antd";
-import React, {FC} from 'react'
+import React, {FC, useRef} from 'react'
 import Plot from "react-plotly.js";
 
 
@@ -31,6 +32,9 @@ const getCountriesAndValues = (data?: CellSet): [string[], number[]] => {
 
 export const Map: FC<WidgetPluginProps> = (props) => {
 
+    const container = useRef<HTMLDivElement>(null);
+    const {height, width} = useComponentSize(container);
+
     let {isLoading, data, error} = useQueryResult({
         serverKey: "my-server",
         queryId: props.queryId,
@@ -44,10 +48,6 @@ export const Map: FC<WidgetPluginProps> = (props) => {
                 FROM [Green-growth]`
         }
     });
-
-
-    let [columnsAxis, rowsAxis] = data.axes;
-    let numberOfColumns = columnsAxis.positions.length;
 
     let [countries, values] = getCountriesAndValues(data);
     console.log(isLoading, data, countries, values);
@@ -78,7 +78,10 @@ export const Map: FC<WidgetPluginProps> = (props) => {
     // )
 
     return (
-        <div style={{...props.style, height: "100%",}}>
+        <div
+            ref = {container}
+            style={{...props.style, height: "100%",}}
+        >
             {error? (
                 <div>{error.stackTrace}</div>
             ) : isLoading? (
@@ -96,6 +99,7 @@ export const Map: FC<WidgetPluginProps> = (props) => {
                             autocolorscale: true,
                         },
                     ]}
+                    layout={{height, width}}
                 />
             )}
        </div>
