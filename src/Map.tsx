@@ -22,9 +22,41 @@ export const Map: FC<WidgetPluginProps> = (props) => {
         return <Spin/>
     }
 
+    if (error) {
+        return (<div>{error.stackTrace}</div>)
+    }
+
+    if (!data){
+        return null;
+    }
+
+    let [columnAxis, rowsAxis] = data.axes;
+    let numberOfColumns = columnAxis.positions.length;
+
+    console.log(data);
+
     return (
-        <div style={props.style}>
-            Hello World!
-        </div>
+        <table>
+            <tr>
+                <th/>
+                {columnAxis.positions.map((position, columnIndex) => (
+                    <th key={columnIndex}> {position[0].captionPath[0]}</th>
+                ))}
+            </tr>
+            {rowsAxis.positions.map((position, rowIndex) => {
+                const tableCells: JSX.Element[] = [];
+                tableCells.push(<td key={0}>{position[0].captionPath[2]}</td>);
+                for (let columnIndex = 0; columnIndex < numberOfColumns ; columnIndex++) {
+                    const cellIndex = rowIndex * numberOfColumns + columnIndex;
+                    const dataCell = data.cells[cellIndex];
+                    tableCells.push(
+                        <td key={columnIndex + 1}>{dataCell?.formattedValue}</td>
+                    )
+                }
+
+                return <tr key={rowIndex}>{tableCells}</tr>
+
+            })}
+        </table>
     )
 }
