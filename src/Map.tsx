@@ -45,17 +45,6 @@ export const Map: FC<WidgetPluginProps> = (props) => {
         }
     });
 
-    if (isLoading) {
-        return <Spin/>
-    }
-
-    if (error) {
-        return (<div>{error.stackTrace}</div>)
-    }
-
-    if (!data){
-        return null;
-    }
 
     let [columnsAxis, rowsAxis] = data.axes;
     let numberOfColumns = columnsAxis.positions.length;
@@ -90,19 +79,25 @@ export const Map: FC<WidgetPluginProps> = (props) => {
 
     return (
         <div style={{...props.style, height: "100%",}}>
-         <Plot
-             data={[
-                 {
-                     type: "choropleth",
-                     locationmode: "country names",
-                     locations: countries,
-                     z: values,
-                     text: countries,
-                     // @ts-ignore
-                     autocolorscale: true,
-                 },
-           ]}
-         />
+            {error? (
+                <div>{error.stackTrace}</div>
+            ) : isLoading? (
+                <Spin/>
+            ) : (
+                <Plot
+                    data={[
+                        {
+                            type: "choropleth",
+                            locationmode: "country names",
+                            locations: countries,
+                            z: values,
+                            text: countries,
+                            // @ts-ignore
+                            autocolorscale: true,
+                        },
+                    ]}
+                />
+            )}
        </div>
     );
 }
