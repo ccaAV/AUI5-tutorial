@@ -1,4 +1,4 @@
-import {MdxSelect, parse, WidgetPlugin} from "@activeviam/activeui-sdk";
+import {FiltersEditor, MdxSelect, parse, WidgetPlugin} from "@activeviam/activeui-sdk";
 import {IconWorld} from "./IconWorld";
 import { Map } from "./Map"
 import {MapWidgetState} from "./map.types";
@@ -9,6 +9,7 @@ const widgetKey = "map"
 export const pluginWidgetMap: WidgetPlugin<MapWidgetState> = {
     Component: Map,
     contentEditor: MapContentEditor,
+    filtersEditor: FiltersEditor,
     Icon: IconWorld,
     initialState: {
         widgetKey,

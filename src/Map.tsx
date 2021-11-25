@@ -49,34 +49,6 @@ export const Map: FC<WidgetPluginProps<MapWidgetState>> = (props) => {
 
     let [countries, values] = getCountriesAndValues(data);
 
-    // return (
-    //    <table>
-    //        <tr>
-    //            <th/>
-    //            {columnsAxis.positions.map((position, columnIndex) => (
-    //                <th key={columnIndex}>
-    //                    {position[0].captionPath[0]}
-    //                </th>
-    //            ))
-    //            }
-    //        </tr>
-    //        {rowsAxis.positions.map((position, rowIndex: number) => {
-    //            const tableCells: JSX.Element[] = [];
-    //            tableCells.push(<td key={0}>{position[0].captionPath[2]}</td>);
-    //
-    //            for (let columnIndex = 0 ; columnIndex < numberOfColumns ; columnIndex ++) {
-    //                const cellIndex = rowIndex * numberOfColumns + columnIndex;
-    //                const dataCell = data.cells[cellIndex];
-    //
-    //                tableCells.push(
-    //                    <td key = {columnIndex +1}>{dataCell?.formattedValue}</td>
-    //                )
-    //            }
-    //
-    //            return <tr key={rowIndex}>{tableCells}</tr>
-    //        })}
-    //    </table>
-    // )
 
     return (
         <div ref={container} style={{...props.style, height: "100%"}}>
