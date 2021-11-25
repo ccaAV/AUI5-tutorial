@@ -16,19 +16,11 @@ const getCountriesAndValues = (data? : CellSet): [string[], number[]] => {
     }
 
     let [columnsAxis, rowsAxis] = data.axes;
-
-    const numberOfYears = columnsAxis.positions.length;
     const numberOfCountries = rowsAxis.positions.length;
 
     const valueForSelectedYear = new Array(numberOfCountries).fill(null);
     data.cells.forEach((cell) => {
-        const rowIndex = Math.floor(cell.ordinal / numberOfYears);
-        const columnIndex = cell.ordinal % numberOfYears;
-        const year = columnsAxis.positions[columnIndex][0].captionPath[0];
-
-        if (year === "2019") {
-            valueForSelectedYear[rowIndex] = cell.value;
-        }
+        valueForSelectedYear[cell.ordinal] = cell.value;
     })
 
     return [rowsAxis.positions.map(position => position[0].captionPath[2]), valueForSelectedYear]
