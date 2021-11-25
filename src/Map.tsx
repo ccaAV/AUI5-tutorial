@@ -1,11 +1,12 @@
-import {CellSet, stringify, useQueryResult, WidgetPluginProps} from "@activeviam/activeui-sdk";
+import {CellSet, withQueryResult} from "@activeviam/activeui-sdk";
 import useComponentSize from "@rehooks/component-size";
 import {Spin} from "antd";
-import React, {FC, useMemo, useRef} from 'react'
 
 import Plotly from "plotly.js/dist/plotly-geo";
+import React, {useRef} from 'react'
 import createPlotlyComponent from "react-plotly.js/factory";
 import {MapWidgetState} from "./map.types";
+
 const Plot = createPlotlyComponent(Plotly);
 
 
@@ -33,19 +34,11 @@ const getCountriesAndValues = (data? : CellSet): [string[], number[]] => {
     return [rowsAxis.positions.map(position => position[0].captionPath[2]), valueForSelectedYear]
 }
 
-export const Map: FC<WidgetPluginProps<MapWidgetState>> = (props) => {
+export const Map = withQueryResult<MapWidgetState>((props) => {
 
     const container = useRef<HTMLDivElement>(null);
     let {height, width} = useComponentSize(container);
-    const {mdx}  = props.widgetState.query;
-    let stringifiedMdx = useMemo(() => stringify(mdx), [mdx]);
-    let {isLoading, data, error} = useQueryResult({
-        serverKey: "my-server",
-        queryId: props.queryId,
-        query: {
-            mdx: stringifiedMdx
-        }
-    });
+    let {isLoading, data, error} = props.queryResult
 
     let [countries, values] = getCountriesAndValues(data);
 
@@ -75,4 +68,4 @@ export const Map: FC<WidgetPluginProps<MapWidgetState>> = (props) => {
             }
         </div>
     )
-}
+})
