@@ -16,9 +16,14 @@
     "@activeviam/activeui-scripts": "5.0.3",
     "@activeviam/activeui-sdk": "5.0.3",
     "@activeviam/sandbox-clients": "5.0.3",
+    "@rehooks/component-size": "^1.0.3",
+    "@types/react-plotly.js": "^2.5.0",
     "antd": "4.12.2",
     "lodash": "^4.17.15",
-    "react": "^17.0.0"
+    "plotly.js": "^2.6.3",
+    "react": "^17.0.0",
+    "react-intl": "^5.22.0",
+    "react-plotly.js": "^2.5.1"
   },
   "devDependencies": {
     "@activeviam/browserslist-config-activeui": "5.0.3",
