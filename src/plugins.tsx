@@ -58,6 +58,7 @@ import {
   WidgetPlugin,
 } from "@activeviam/activeui-sdk";
 import _keyBy from "lodash/keyBy";
+import {pluginMenuItemFilterOnCountries} from "./pluginMenuItemFilterOnCountries";
 import {pluginWidgetMap} from "./PluginWidgetMap";
 
 const cellPlugins: Array<CellPlugin<any>> = [
@@ -73,6 +74,7 @@ const cellStylePlugins: Array<CellStylePlugin<any>> = [
 ];
 
 const menuItemPlugins: Array<MenuItemPlugin<any, any>> = [
+  pluginMenuItemFilterOnCountries,
   pluginMenuItemDuplicateWidget,
   pluginMenuItemFullScreen,
   pluginMenuItemFilterOnSelection,
@@ -187,6 +189,8 @@ pluginWidgetTreeTable.cellStyle = pluginCellStylePivotTable.key;
     ];
   },
 );
+
+pluginWidgetMap.contextMenuItems = ["filter-on-countries"]
 
 pluginWidgetDrillthroughTable.menuItems = [
   pluginMenuItemRemoveWidget.key,
