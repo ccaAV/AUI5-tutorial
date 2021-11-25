@@ -1,6 +1,6 @@
-import {AWidgetState, MdxString} from "@activeviam/activeui-sdk";
+import {AWidgetState, Mdx, MdxSelect, MdxString, Query} from "@activeviam/activeui-sdk";
 
 
 export interface MapWidgetState extends AWidgetState {
-    mdx: MdxString
+    query: Query<MdxSelect>
 }

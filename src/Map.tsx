@@ -1,7 +1,7 @@
-import {CellSet, useQueryResult, WidgetPluginProps} from "@activeviam/activeui-sdk";
+import {CellSet, stringify, useQueryResult, WidgetPluginProps} from "@activeviam/activeui-sdk";
 import useComponentSize from "@rehooks/component-size";
 import {Spin} from "antd";
-import React, {FC, useRef} from 'react'
+import React, {FC, useMemo, useRef} from 'react'
 
 import Plotly from "plotly.js/dist/plotly-geo";
 import createPlotlyComponent from "react-plotly.js/factory";
@@ -38,11 +38,13 @@ export const Map: FC<WidgetPluginProps<MapWidgetState>> = (props) => {
     const container = useRef<HTMLDivElement>(null);
     let {height, width} = useComponentSize(container);
 
+    const {mdx} = props.widgetState.query;
+    const stringifiedMdx = useMemo(() => stringify(mdx), [mdx]);
     let {isLoading, data, error} = useQueryResult({
         serverKey: "my-server",
         queryId: props.queryId,
         query: {
-            mdx: props.widgetState.mdx
+            mdx: stringifiedMdx
         }
     });
 

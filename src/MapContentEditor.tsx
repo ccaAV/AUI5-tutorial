@@ -18,22 +18,23 @@ export const MapContentEditor: FC<EditorProps<MapWidgetState>> = (props) => {
 
     let {formatMessage} = useIntl();
 
+    const {mdx} = props.widgetState.query;
+    const currentMeasureName = getMeasures(mdx)[0].measureName;
+
     const dataModel = useDataModel("my-server");
     let cube = dataModel.catalogs[0].cubes[0];
-    const measures = dataModel? cube.measures: [];
+    const measures = (dataModel? cube.measures: []).map((measure) => ({
+        ...measure,
+        isDisabled: measure.name === currentMeasureName
+    }));
 
-    const handleMeasureClicked = (measure: Measure) => {
+    const handleMeasureClicked = (measure: Measure & {isDisabled: boolean}) => {
 
         if(!cube) {
             return;
         }
 
-        const currentMdx = props.widgetState.mdx;
-        console.log(`current mdx: ${currentMdx}`);
-        const parsedMdx = parse<MdxSelect>(currentMdx);
-        let currentMeasureName = getMeasures(parsedMdx)[0].measureName;
-        console.log(currentMeasureName);
-        let parsedMdxWithoutCurrentMeasure = removeMeasure(parsedMdx, {
+        let parsedMdxWithoutCurrentMeasure = removeMeasure(mdx, {
             cube,
             measureName: currentMeasureName
         });
@@ -43,13 +44,11 @@ export const MapContentEditor: FC<EditorProps<MapWidgetState>> = (props) => {
             measureName: measure.name
         });
 
-        console.log(`new measure name: ${measure.name}`)
-        let newMdx = stringify(parsedMdxWithNewMeasure);
-        console.log(`new mdx: ${newMdx}`)
-
         props.onWidgetChange({
             ...props.widgetState,
-            mdx: newMdx
+            query: {
+                mdx: parsedMdxWithNewMeasure
+            }
         })
     }
 
