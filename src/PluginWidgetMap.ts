@@ -16,13 +16,11 @@ export const pluginWidgetMap: WidgetPlugin<MapWidgetState, CellSetSelection> = {
         serverKey: "my-server",
         query: {
             mdx: parse<MdxSelect>(`SELECT
-            Crossjoin(
-              [Green-growth].[Year].[Year].Members,
-              [Measures].[Real GDP per capita (USD).MEAN]
-            ) ON COLUMNS,
+              [Measures].[Real GDP per capita (USD).MEAN] ON COLUMNS,
             [Countries].[Country].[Country_Name].Members ON ROWS
             FROM [Green-growth]`)
-    }
+        },
+        filters: [parse("[Green-growth].[Year].[2019]")]
 
     },
     key: widgetKey,
