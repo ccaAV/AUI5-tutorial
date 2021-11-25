@@ -1,11 +1,7 @@
-import _keyBy from "lodash/keyBy";
 import {
   CellPlugin,
   CellStylePlugin,
   MenuItemPlugin,
-  PluginRegistry,
-  TitleBarButtonPlugin,
-  WidgetPlugin,
   pluginCellPivotTable,
   pluginCellStyleDrillthroughTable,
   pluginCellStylePivotTable,
@@ -14,15 +10,15 @@ import {
   pluginCellTreeTable,
   pluginMenuItemCopyQuery,
   pluginMenuItemDuplicateWidget,
-  pluginMenuItemExportToCsv,
   pluginMenuItemExportDrillthroughToCsv,
+  pluginMenuItemExportToCsv,
   pluginMenuItemFilterOnSelection,
   pluginMenuItemFullScreen,
-  pluginMenuItemShowHideTotals,
   pluginMenuItemOpenDrillthrough,
   pluginMenuItemRefreshQuery,
   pluginMenuItemRemoveSort,
   pluginMenuItemRemoveWidget,
+  pluginMenuItemShowHideTotals,
   pluginMenuItemSortChartAscendingly,
   pluginMenuItemSortChartDescendingly,
   pluginMenuItemSortDrillthroughTableAscendingly,
@@ -30,6 +26,7 @@ import {
   pluginMenuItemSortPivotTableAscendingly,
   pluginMenuItemSortPivotTableDescendingly,
   pluginMenuItemSwitchQuickFilterMode,
+  PluginRegistry,
   pluginTitleBarButtonFullScreen,
   pluginTitleBarButtonRemoveWidget,
   pluginTitleBarButtonToggleQueryMode,
@@ -46,7 +43,6 @@ import {
   pluginWidgetPlotlyComboChart,
   pluginWidgetPlotlyDonutChart,
   pluginWidgetPlotlyGaugeChart,
-  pluginWidgetPlotlyLineChart,
   pluginWidgetPlotlyPieChart,
   pluginWidgetPlotlyRadarChart,
   pluginWidgetPlotlyScatterPlot,
@@ -58,7 +54,10 @@ import {
   pluginWidgetQuickFilter,
   pluginWidgetTable,
   pluginWidgetTreeTable,
+  TitleBarButtonPlugin,
+  WidgetPlugin,
 } from "@activeviam/activeui-sdk";
+import _keyBy from "lodash/keyBy";
 import {pluginWidgetMap} from "./PluginWidgetMap";
 
 const cellPlugins: Array<CellPlugin<any>> = [
@@ -107,7 +106,6 @@ const widgetPlugins: Array<WidgetPlugin<any, any>> = [
   pluginWidgetTreeTable,
   pluginWidgetTable,
   pluginWidgetKpi,
-  pluginWidgetPlotlyLineChart,
   pluginWidgetPlotlyAreaChart,
   pluginWidgetPlotlyStackedAreaChart,
   pluginWidgetPlotly100StackedAreaChart,
